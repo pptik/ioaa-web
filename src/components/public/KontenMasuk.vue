@@ -8,11 +8,11 @@
       <form class="ui form">
         <div class="field">
           <div>Email</div>
-          <input type="text" name="email" autocomplete="email" placeholder="Your email to login" v-model="email"/>
+          <input type="text" name="email" autocomplete="kode" placeholder="Your code to login" v-model="kode"/>
         </div>
         <div class="field">
           <div>Password</div>
-          <input type="password" name="password" autocomplete="password" placeholder="Your password to login" v-model="sandi"/>
+          <input type="password" name="password" autocomplete="password" placeholder="Your password to login" v-model="password"/>
         </div>
         <div class="field">
           <button v-on:click.prevent="masuk" type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button">Submit</button>
@@ -30,28 +30,29 @@
     name: "konten",
     data(){
       return{
-        email: '',
-        sandi: ''
+        kode: '',
+        password: ''
       }
     },
     methods: {
       masuk:function () {
-        if(this.email == 'administrator' && this.sandi == 'administrator'){
-          this.$session.set('user_type','administrator')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'jury' && this.sandi == 'jury'){
-          this.$session.set('user_type','jury')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'team_leader' && this.sandi == 'team_leader'){
-          this.$session.set('user_type','time_leader')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'participant' && this.sandi == 'participant'){
-          this.$session.set('user_type','time_leader')
-          this.$router.push({path:'/home'})
-        }else{
-          alert('Sorry, email or password not registered in our database')
-          this.$router.push({path:'/login'})
-        }
+        this.$http.post(global_json.general_url+global_json.api.login,{
+          Kode: this.kode,
+          Password: this.password
+        }).then(function (data) {
+          if(data.body.success == true){//Login Succeed
+            //alert(data.body.message)
+            this.$session.set('sess_id',data.body.sessionid)
+            this.$session.set('user_id',data.body.profile._id)
+            this.$session.set('user_role',data.body.profile.privilege)
+            this.$session.set('username',data.body.profile.name)
+
+            this.$router.push({path:'/home'})
+
+          }else if(data.body.success == false){
+            alert(data.body.message)
+          }
+        });
       }
     }
   }

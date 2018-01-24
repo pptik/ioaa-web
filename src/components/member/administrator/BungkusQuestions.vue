@@ -18,10 +18,7 @@
               <div class="content"></div><router-link to="/administrator/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/accessing" class="grey-text"><i class="newspaper icon"></i>Accessing</router-link>
-            </div>
-            <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/olympiad_time" class="grey-text"><i class="hourglass end icon"></i>Olympiad Time</router-link>
+              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
             </div>
           </div>
         </div>
@@ -56,12 +53,12 @@
         name: "index",
         created () {
 
-          if(this.$session.get('user_type') != 'administrator'){
+          if(this.$session.get('user_role') != 0){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
 
-          document.title = 'IOAA | Home';
+          document.title = 'IOAA | Questions';
         },
         mounted(){
           $( "#datepicker" ).datepicker({

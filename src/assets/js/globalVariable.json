@@ -1,3 +1,7 @@
 {
-  "general_url": "http://localhost:3001"
+  "general_url": "http://167.205.7.226:3033",
+  "api" : {
+    "login" : "/api/users/signin",
+    "create_user" : "/api/users/create"
+  }
 }

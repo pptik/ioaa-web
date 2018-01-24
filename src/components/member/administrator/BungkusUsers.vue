@@ -18,10 +18,7 @@
               <div class="content"></div><router-link to="/administrator/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/accessing" class="grey-text"><i class="newspaper icon"></i>Accessing</router-link>
-            </div>
-            <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/olympiad_time" class="grey-text"><i class="hourglass end icon"></i>Olympiad Time</router-link>
+              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
             </div>
           </div>
         </div>
@@ -33,10 +30,13 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
+              <div class="content">You are logged as {{username}}</div>
             </div>
             <div style="padding:1em;" class="item">
               <a href="#" v-on:click.prevent="create_user" class="content grey-text"><i class="add icon"></i>Create User</a>
+            </div>
+            <div style="padding:1em;" class="item">
+              <a href="#" v-on:click.prevent="create_country" class="content grey-text"><i class="add icon"></i>Create Country</a>
             </div>
           </div>
         </div>
@@ -49,52 +49,87 @@
         <form class="ui form">
           <div class="field">
             <label>Privilege</label>
-            <select class="ui dropdown">
-              <option>Select Privilege</option>
-              <option>Jury</option>
-              <option>Participant</option>
-              <option>Team Leader</option>
+            <select class="ui dropdown" v-model="select_privilege">
+              <option value="">Select Privilege</option>
+              <option value="3">Jury</option>
+              <option value="2">Participant</option>
+              <option value="1">Team Leader</option>
             </select>
           </div>
           <div class="field">
             <label>Name</label>
-            <input type="text" placeholder="Name"/>
+            <input type="text" placeholder="Name" v-model="input_name"/>
           </div>
           <div class="field">
             <label>Email</label>
-            <input type="email" placeholder="Email"/>
+            <input type="email" placeholder="Email" v-model="input_email"/>
           </div>
           <div class="field">
             <label>Country</label>
-            <select class="ui dropdown">
+            <select class="ui dropdown" v-model="select_country">
               <option>Select Country</option>
               <option>Indonesia</option>
             </select>
           </div>
           <div class="field">
             <label>Code</label>
-            <input type="text" placeholder="Code"/>
+            <input type="text" placeholder="Code" v-model="input_code"/>
           </div>
           <div class="field">
             <label>Gender</label>
-            <select class="ui dropdown">
+            <select class="ui dropdown" v-model="select_gender">
               <option>Select Gender</option>
-              <option>Male</option>
-              <option>Female</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
           </div>
           <div class="field">
             <label>Salutation</label>
-            <select class="ui dropdown">
+            <select class="ui dropdown" v-model="select_salutation">
               <option>Select Salutation</option>
-              <option>Mr</option>
-              <option>Ms</option>
-              <option>Mrs</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Ms.">Ms.</option>
+              <option value="Mrs.">Mrs.</option>
             </select>
           </div>
           <div class="field">
             <label>Birthday</label>
-            <input type="date" placeholder="Birthday" id="datepicker"/>
+            <input type="date" placeholder="Birthday" id="datepicker" v-model="input_birthday"/>
+          </div>
+          <div class="field">
+            <button type="button"
+                    style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
+                    class="ui button" v-on:click.prevent="create_user_process">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="ui modal create-country"><i class="close icon"></i>
+      <div class="header">Create Country</div>
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Country Name</label>
+            <input type="text" placeholder="Country Name"/>
+          </div>
+          <div class="field">
+            <label>Country Code</label>
+            <input type="text" placeholder="Country Code"/>
+          </div>
+          <div class="field">
+            <label>Country Language</label>
+            <input type="text" placeholder="Country Language"/>
+          </div>
+          <div class="field">
+            <label>Country Language Code</label>
+            <input type="text" placeholder="Country Language Code"/>
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select class="ui dropdown">
+              <option>Select Type</option>
+              <option>Main</option>
+            </select>
           </div>
           <div class="field">
             <button type="button"
@@ -120,7 +155,7 @@
         name: "index",
         created () {
 
-          if(this.$session.get('user_type') != 'administrator'){
+          if(this.$session.get('user_role') != 0){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
@@ -138,11 +173,44 @@
           create_user: function () {
             $('.ui.modal.create-user')
               .modal('show')
+          },
+          create_country: function () {
+            $('.ui.modal.create-country')
+              .modal('show')
+          },
+          create_user_process: function () {
+            this.$http.post(global_json.general_url+global_json.api.create_user,{
+              SessID: this.$session.set('sess_id',data.body.sessionid),
+              Name: this.input_name,
+              CountryID: this.select_country,
+              Code: this.input_code,
+              Gender: this.select_gender,
+              Salutation: this.select_salutation,
+              Email: this.input_email,
+              BirthDay: this.input_birthday,
+              Privilege: this.select_privilege
+            }).then(function (data) {
+              if(data.body.success == true){
+                alert(data.body.message)
+                //this.$router.push({path:'/home'})
+              }else if(data.body.success == false){
+                alert(data.body.message)
+                //this.$router.push({path:'/login'})
+              }
+            });
           }
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            input_email: '',
+            input_code: '',
+            input_birthday: '',
+            input_name: '',
+            select_privilege: '',
+            select_country: '',
+            select_gender: '',
+            select_salutation: '',
+            username: this.$session.get('username')
           }
         },
         components: {

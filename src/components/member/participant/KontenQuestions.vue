@@ -1,6 +1,6 @@
 <template>
   <span>
-    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Create Question</div>
+    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Questions</div>
     <div class="ui segment grey-text">
         <form class="ui form">
           <div class="ui grid">
@@ -15,59 +15,28 @@
             <div class="sixteen wide column">
              <div class="field">
                 <label>Question</label>
+                <span>
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                </span>
+              </div>
+            </div>
+            <div class="sixteen wide column">
+             <div class="field">
+                <label>Answer</label>
                 <vue-editor></vue-editor>
               </div>
             </div>
-            <!--<div class="sixteen wide column">
+            <div class="sixteen wide column">
              <div class="field">
                 <label>Stylus Area</label>
                 <canvas id="sketchpad" height="100" style="border:1px solid #000000;width: 100%;"></canvas>
               </div>
-            </div>-->
+            </div>
             <div class="sixteen wide column">
               <button  type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button">Submit</button>
             </div>
           </div>
         </form>
-    </div>
-    <br>
-    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="list icon"></i>Questions List</div>
-    <div class="ui segment grey-text">
-        <form class="ui form">
-          <div class="ui grid">
-            <div class="eight wide column">
-              <div class="field">
-                <label>Question Number</label>
-                <select class="ui dropdown">
-                    <option>Select Question Number</option>
-                </select>
-              </div>
-            </div>
-            <div class="eight wide column">
-             <div class="field">
-                <label>Language</label>
-                <select class="ui dropdown">
-                    <option>Select Language</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </form>
-        <table class="ui compact table" style="font-size: 0.8rem">
-        <thead>
-          <tr>
-            <th>Question Number</th>
-            <th>Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>What is you hobby?</td>
-          </tr>
-        </tbody>
-      </table>
-
     </div>
   </span>
 </template>
@@ -161,7 +130,7 @@
         }
       }
 
-      //init();
+      init();
 
     },
     components: {

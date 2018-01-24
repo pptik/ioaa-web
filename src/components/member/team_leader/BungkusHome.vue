@@ -1,24 +1,25 @@
 <template>
   <section class="ui container">
-    <navigasi :highlight1="true" :highlight2="false"></navigasi>
+    <navigasi :highlight1="true" :highlight2="false" :highlight3="false"></navigasi>
     <div class="ui stackable sixteen column grid">
       <div class="three wide column">
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content"><router-link to="/administrator/users" class="grey-text"><i class="user icon"></i>Users</router-link></div>
+              <div class="content"></div><router-link to="/team_leader/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
+              <!--<div class="content"><router-link to="/administrator/users" class="grey-text"><i class="user icon"></i>Users</router-link></div>-->
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"><router-link to="/administrator/questions" class="grey-text"><i class="write icon"></i>Questions</router-link></div>
+              <div class="content"></div><router-link to="/team_leader/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>
+              <!--<div class="content"><router-link to="/administrator/questions" class="grey-text"><i class="write icon"></i>Questions</router-link></div>-->
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>
+              <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
+              <div class="content"><router-link to="/team_leader/accessing" class="grey-text"><i class="write icon"></i>Accessing</router-link></div>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
-            </div>
-            <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
+              <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
+              <div class="content"><router-link to="/team_leader/translate" class="grey-text"><i class="write icon"></i>Translate</router-link></div>
             </div>
           </div>
         </div>
@@ -30,7 +31,7 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as <b>{{username}}</b></div>
+              <div class="content">You are logged as {{user_type}}</div>
             </div>
           </div>
         </div>
@@ -51,7 +52,7 @@
         name: "index",
         created () {
 
-          if(this.$session.get('user_role') != 0){
+          if(this.$session.get('user_type') != 'team_leader'){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
@@ -60,7 +61,7 @@
         },
         data(){
           return{
-            username: this.$session.get('username')
+            user_type: this.$session.get('user_type')
           }
         },
         components: {

@@ -1,24 +1,25 @@
 <template>
   <section class="ui container">
-    <navigasi :highlight1="true" :highlight2="false"></navigasi>
+    <navigasi :highlight1="true" :highlight2="false" :highlight3="false"></navigasi>
     <div class="ui stackable sixteen column grid">
       <div class="three wide column">
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content"><router-link to="/administrator/users" class="grey-text"><i class="user icon"></i>Users</router-link></div>
+              <div class="content"></div><router-link to="/jury/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
+              <!--<div class="content"><router-link to="/administrator/users" class="grey-text"><i class="user icon"></i>Users</router-link></div>-->
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"><router-link to="/administrator/questions" class="grey-text"><i class="write icon"></i>Questions</router-link></div>
+              <div class="content"></div><router-link to="/jury/moderation" class="primarytext"><i class="talk outline icon"></i>Moderation</router-link>
+              <!--<div class="content"><router-link to="/administrator/questions" class="grey-text"><i class="write icon"></i>Questions</router-link></div>-->
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/moderation" class="primarytext"><i class="talk outline icon"></i>Moderation</router-link>
+              <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
+              <div class="content"><router-link to="/jury/accessing" class="grey-text"><i class="write icon"></i>Accessing</router-link></div>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
-            </div>
-            <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
+              <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
+              <div class="content"><router-link to="/jury/translate" class="grey-text"><i class="write icon"></i>Translate</router-link></div>
             </div>
           </div>
         </div>
@@ -47,31 +48,16 @@
 
     import global_json from '../../../assets/js/globalVariable.json';
 
-
-
     export default {
         name: "index",
         created () {
 
-          if(this.$session.get('user_role') != 0){
+          if(this.$session.get('user_type') != 'jury'){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
 
           document.title = 'IOAA | Moderation';
-        },
-        mounted(){
-          $( "#datepicker" ).datepicker({
-            changeMonth: true,
-            changeYear: true,
-            yearRange: '1930:2010'
-          });
-        },
-        methods : {
-          create_user: function () {
-            $('.ui.modal.create-user')
-              .modal('show')
-          }
         },
         data(){
           return{

@@ -5,10 +5,10 @@
       <p>International Olympiad On Astronomy And Astrophysics</p>
       <form class="ui form">
         <div class="required field">
-          <input type="text" placeholder="Email" autocomplete="email" v-model="email"/>
+          <input type="email" placeholder="Your code to login" autocomplete="code" v-model="kode"/>
         </div>
         <div class="required field">
-          <input type="password" autocomplete="password" placeholder="Password" v-model="sandi"/>
+          <input type="password" autocomplete="password" placeholder="Your password to login" v-model="password"/>
         </div>
         <div class="required field">
           <button type="button"
@@ -34,28 +34,30 @@
     name: "konten",
     data(){
       return{
-        email: '',
-        sandi: ''
+        kode: '',
+        password: ''
       }
     },
     methods: {
       masuk:function () {
-        if(this.email == 'administrator' && this.sandi == 'administrator'){
-          this.$session.set('user_type','administrator')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'jury' && this.sandi == 'jury'){
-          this.$session.set('user_type','jury')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'team_leader' && this.sandi == 'team_leader'){
-          this.$session.set('user_type','time_leader')
-          this.$router.push({path:'/home'})
-        }else if(this.email == 'participant' && this.sandi == 'participant'){
-          this.$session.set('user_type','time_leader')
-          this.$router.push({path:'/home'})
-        }else{
-          alert('Sorry, email or password not registered in our database')
-          this.$router.push({path:'/login'})
-        }
+        this.$http.post(global_json.general_url+global_json.api.login,{
+          Kode: this.kode,
+          Password: this.password
+        }).then(function (data) {
+          if(data.body.success == true){//Login Succeed
+            //alert(data.body.message)
+            this.$session.set('sess_id',data.body.sessionid)
+            this.$session.set('user_id',data.body.profile._id)
+            this.$session.set('user_role',data.body.profile.privilege)
+            this.$session.set('username',data.body.profile.name)
+
+            this.$router.push({path:'/home'})
+
+          }else if(data.body.success == false){
+            alert(data.body.message)
+            this.$router.push({path:'/login'})
+          }
+        });
       }
     }
   }

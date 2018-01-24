@@ -22,7 +22,7 @@
         },
         created () {
           document.title = 'IOAA 2018 | Welcome to International Olympiad On Astronomy And Astrophysics.';
-          if(this.$session.get('user_type') != null){//Mencek apakah pengguna mengakses sebagai member
+          if(this.$session.get('user_role') != null){//Mencek apakah pengguna mengakses sebagai member
             this.$router.push({path:'/home'})
           }
         },

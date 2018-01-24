@@ -2,14 +2,6 @@
   <span>
     <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="users icon"></i>Users List</div>
     <div class="ui segment grey-text">
-
-      <!--<div class="sixteen wide column">
-        <form class="ui form">
-          <div class="field">
-            <input type="text" placeholder="Tulis pencarian berdasarkan email" style="width:100%;" v-model="search"/>
-          </div>
-        </form>
-      </div>-->
         <form class="ui form">
           <div class="field">
             <select class="ui dropdown">
@@ -47,6 +39,29 @@
         </tbody>
       </table>
 
+    </div>
+    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="flag outline icon"></i>Countries List</div>
+    <div class="ui segment grey-text">
+      <table class="ui compact table" style="font-size: 0.8rem">
+        <thead>
+          <tr>
+            <th>Country Name</th>
+            <th>Country Code</th>
+            <th>Country Language</th>
+            <th>Country Language Code</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Indonesia</td>
+            <td>INA</td>
+            <td>Bahasa</td>
+            <td>BHS</td>
+            <td>Main</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </span>
 </template>
