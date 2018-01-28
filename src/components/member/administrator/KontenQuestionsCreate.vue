@@ -1,40 +1,32 @@
 <template>
   <span>
-    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="list icon"></i>Questions List</div>
+    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Create Question</div>
     <div class="ui segment grey-text">
         <form class="ui form">
           <div class="ui grid">
             <div class="eight wide column">
               <div class="field">
                 <label>Question Number</label>
-                <input type="text" placeholder="Name" v-model="input_question_number"/>
+                <input type="number" placeholder="Question Number" v-model="input_question_number"/>
               </div>
             </div>
-            <div class="eight wide column">
+            <div class="sixteen wide column">
              <div class="field">
-                <label>Language</label>
-                <select class="ui dropdown">
-                    <option>Select Language</option>
-                </select>
+                <label>Question</label>
+                <vue-editor v-model="input_question"></vue-editor>
               </div>
+            </div>
+            <!--<div class="sixteen wide column">
+             <div class="field">
+                <label>Stylus Area</label>
+                <canvas id="sketchpad" height="100" style="border:1px solid #000000;width: 100%;"></canvas>
+              </div>
+            </div>-->
+            <div class="sixteen wide column">
+              <button  type="button" v-on:click.prevent="create_question" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button">Submit</button>
             </div>
           </div>
         </form>
-        <table class="ui compact table" style="font-size: 0.8rem">
-        <thead>
-          <tr>
-            <th>Question Number</th>
-            <th>Question</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>What is you hobby?</td>
-          </tr>
-        </tbody>
-      </table>
-
     </div>
   </span>
 </template>
@@ -46,19 +38,6 @@
 
   export default {
     name: "konten",
-    created(){
-      //Daftar pertanyaan
-      this.$http.post(global_json.general_url + global_json.api.questions_list, {
-        SessID: this.$session.get('sess_id')
-      }).then(function (data) {
-        if (data.body.success == true) {
-          this.users = data.body.listQuestions;
-          console.log('questions: '+JSON.stringify(data.body.listQuestions))
-        } else if (data.body.success == false) {
-          console.log('M: Gagal mengembalikan daftar pertanyaan: '+JSON.stringify(data.body))
-        }
-      });
-    },
     mounted() {
       // Variables for referencing the canvas and 2dcanvas context
       var canvas,ctx;

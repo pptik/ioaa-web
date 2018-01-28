@@ -45,7 +45,7 @@
           Password: this.password
         }).then(function (data) {
           if(data.body.success == true){//Login Succeed
-            //alert(data.body.message)
+            //console.log('sess id: '+data.body.sessionid)
             this.$session.set('sess_id',data.body.sessionid)
             this.$session.set('user_id',data.body.profile._id)
             this.$session.set('user_role',data.body.profile.privilege)

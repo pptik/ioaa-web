@@ -33,10 +33,10 @@
               <div class="content">You are logged as <b>{{username}}</b></div>
             </div>
             <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions" class="primarytext"><i class="align justify icon"></i>Questions List</router-link>
+              <router-link to="/administrator/questions" class="grey-text"><i class="align justify icon"></i>Questions List</router-link>
             </div>
             <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions/create" class="grey-text"><i class="write icon"></i> Create question</router-link>
+              <router-link to="/administrator/questions/create" class="primarytext"><i class="write icon"></i> Create question</router-link>
             </div>
             <div style="padding:1em;" class="item">
               <router-link to="/administrator/questions/update" class="grey-text"><i class="write icon"></i> Update question</router-link>
@@ -52,7 +52,7 @@
 <script>
     import '../../../assets/js/slick.min.js'
     import Navigasi from './Navigasi';
-    import KontenUtama from './KontenQuestions';
+    import KontenUtama from './KontenQuestionsCreate';
 
     import global_json from '../../../assets/js/globalVariable.json';
 

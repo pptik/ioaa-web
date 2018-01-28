@@ -2,6 +2,11 @@
   "general_url": "http://167.205.7.226:3033",
   "api" : {
     "login" : "/api/users/signin",
-    "create_user" : "/api/users/create"
+    "create_user" : "/api/users/create",
+    "create_country" : "/api/countries/create",
+    "create_question" : "/api/questions/create",
+    "users_list" : "/api/users/get/all",
+    "countries_list" : "/api/countries/get/all",
+    "questions_list" : "/api/questions/get/all"
   }
 }

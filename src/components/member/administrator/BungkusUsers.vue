@@ -30,7 +30,7 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{username}}</div>
+              <div class="content">You are logged as <b>{{username}}</b></div>
             </div>
             <div style="padding:1em;" class="item">
               <a href="#" v-on:click.prevent="create_user" class="content grey-text"><i class="add icon"></i>Create User</a>
@@ -68,7 +68,7 @@
             <label>Country</label>
             <select class="ui dropdown" v-model="select_country">
               <option>Select Country</option>
-              <option>Indonesia</option>
+              <option value="5a66cd98de2c61277c23fadd">Indonesia</option>
             </select>
           </div>
           <div class="field">
@@ -94,7 +94,7 @@
           </div>
           <div class="field">
             <label>Birthday</label>
-            <input type="date" placeholder="Birthday" id="datepicker" v-model="input_birthday"/>
+            <input type="text" placeholder="Birthday" id="datepicker" v-model="input_birthday"/>
           </div>
           <div class="field">
             <button type="button"
@@ -110,23 +110,23 @@
         <form class="ui form">
           <div class="field">
             <label>Country Name</label>
-            <input type="text" placeholder="Country Name"/>
+            <input type="text" placeholder="Country Name" v-model="input_country_name"/>
           </div>
           <div class="field">
             <label>Country Code</label>
-            <input type="text" placeholder="Country Code"/>
+            <input type="text" placeholder="Country Code" v-model="input_country_code"/>
           </div>
           <div class="field">
             <label>Country Language</label>
-            <input type="text" placeholder="Country Language"/>
+            <input type="text" placeholder="Country Language" v-model="input_language"/>
           </div>
           <div class="field">
             <label>Country Language Code</label>
-            <input type="text" placeholder="Country Language Code"/>
+            <input type="text" placeholder="Country Language Code" v-model="input_language_code"/>
           </div>
           <div class="field">
             <label>Type</label>
-            <select class="ui dropdown">
+            <select class="ui dropdown" v-model="select_type">
               <option>Select Type</option>
               <option>Main</option>
             </select>
@@ -134,7 +134,7 @@
           <div class="field">
             <button type="button"
                     style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
-                    class="ui button" v-on:click.prevent="tambah_universitas_proses">Submit</button>
+                    class="ui button" v-on:click.prevent="create_country_process">Submit</button>
           </div>
         </form>
       </div>
@@ -153,6 +153,25 @@
 
     export default {
         name: "index",
+        data(){
+        return{
+          input_email: '',
+          input_code: '',
+          input_birthday: '',
+          input_name: '',
+          input_country_name: '',
+          input_country_code: '',
+          input_type: '',
+          select_type: '',
+          input_language: '',
+          input_language_code: '',
+          select_privilege: '',
+          select_country: '',
+          select_gender: '',
+          select_salutation: '',
+          username: this.$session.get('username')
+        }
+      },
         created () {
 
           if(this.$session.get('user_role') != 0){
@@ -179,38 +198,53 @@
               .modal('show')
           },
           create_user_process: function () {
+            var datePicker=$("#datepicker").val();
+            //this.dt=dd;  // I don't like this way...
+            //console.log('bIRth: ')
+            //console.log(datePicker, this.input_birthday);
+            //console.log(datePicker);
+
             this.$http.post(global_json.general_url+global_json.api.create_user,{
-              SessID: this.$session.set('sess_id',data.body.sessionid),
+              SessID: this.$session.get('sess_id'),
               Name: this.input_name,
               CountryID: this.select_country,
               Code: this.input_code,
               Gender: this.select_gender,
               Salutation: this.select_salutation,
               Email: this.input_email,
-              BirthDay: this.input_birthday,
+              BirthDay: datePicker,
               Privilege: this.select_privilege
             }).then(function (data) {
               if(data.body.success == true){
+                console.log('DK: '+JSON.stringify(data));
                 alert(data.body.message)
                 //this.$router.push({path:'/home'})
+                window.location.href = "/administrator/users"
               }else if(data.body.success == false){
                 alert(data.body.message)
                 //this.$router.push({path:'/login'})
               }
             });
-          }
-        },
-        data(){
-          return{
-            input_email: '',
-            input_code: '',
-            input_birthday: '',
-            input_name: '',
-            select_privilege: '',
-            select_country: '',
-            select_gender: '',
-            select_salutation: '',
-            username: this.$session.get('username')
+          },
+          create_country_process: function () {
+            this.$http.post(global_json.general_url+global_json.api.create_country,{
+              SessID: this.$session.get('sess_id'),
+              Name: this.input_country_name,
+              CountryCode: this.input_country_code,
+              Language: this.input_language,
+              LanguageCode: this.input_language_code,
+              Type: this.select_type
+            }).then(function (data) {
+              if(data.body.success == true){
+                //console.log('DK: '+JSON.stringify(data));
+                alert(data.body.message)
+                //this.$router.push({path:'/home'})
+                window.location.href = "/administrator/users"
+              }else if(data.body.success == false){
+                alert(data.body.message)
+                //this.$router.push({path:'/login'})
+              }
+            });
           }
         },
         components: {

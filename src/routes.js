@@ -4,6 +4,8 @@ import ControllerHome from './components/public/ControllerHome.vue';
 import AdministratorHome from './components/member/administrator/BungkusHome.vue';
 import AdministratorUsers from './components/member/administrator/BungkusUsers.vue';
 import AdministratorQuestions from './components/member/administrator/BungkusQuestions.vue';
+import AdministratorQuestionsCreate from './components/member/administrator/BungkusQuestionsCreate.vue';
+import AdministratorQuestionsUpdate from './components/member/administrator/BungkusQuestionsUpdate.vue';
 import AdministratorModeration from './components/member/administrator/BungkusModeration.vue';
 import AdministratorGrades from './components/member/administrator/BungkusGrades.vue';
 import AdministratorTimerOlympiad from './components/member/administrator/BungkusTimerOlympiad.vue';
@@ -34,6 +36,8 @@ export default [
   {path:'/home/participant', component: ParticipantHome},
   {path:'/administrator/users', component: AdministratorUsers},
   {path:'/administrator/questions', component: AdministratorQuestions},
+  {path:'/administrator/questions/create', component: AdministratorQuestionsCreate},
+  {path:'/administrator/questions/update', component: AdministratorQuestionsUpdate},
   {path:'/administrator/moderation', component: AdministratorModeration},
   {path:'/administrator/grades', component: AdministratorGrades},
   {path:'/administrator/timer_olympiad', component: AdministratorTimerOlympiad},
