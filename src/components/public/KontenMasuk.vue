@@ -7,12 +7,12 @@
       <h2 class="primary-color">Login</h2><br/>
       <form class="ui form">
         <div class="field">
-          <div>Email</div>
-          <input type="text" name="email" autocomplete="kode" placeholder="Your code to login" v-model="kode"/>
+          <div>Code</div>
+          <input type="text" autocomplete="kode" placeholder="Your code to login" v-model="kode"/>
         </div>
         <div class="field">
           <div>Password</div>
-          <input type="password" name="password" autocomplete="password" placeholder="Your password to login" v-model="password"/>
+          <input type="password" autocomplete="password" placeholder="Your password to login" v-model="password"/>
         </div>
         <div class="field">
           <button v-on:click.prevent="masuk" type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button">Submit</button>

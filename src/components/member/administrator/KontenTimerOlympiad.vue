@@ -5,14 +5,14 @@
       <table class="ui compact table" style="font-size: 0.8rem">
         <thead>
           <tr>
-            <th>Start date</th>
-            <th>End date</th>
+            <th>Start time</th>
+            <th>End time</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td></td>
-            <td></td>
+            <td>{{TanggalMulaiExam}}, {{WaktuMulaiExam}}</td>
+            <td>{{TanggalSelesaiExam}}, {{WaktuSelesaiExam}}</td>
           </tr>
         </tbody>
       </table>
@@ -28,18 +28,24 @@
     name: "konten",
     data(){
       return{
-        StartDate: '',
-        JamMulai: '',
+        end_time: '',
+        start_time: '',
+        TanggalMulaiExam: '',
+        TanggalSelesaiExam: '',
+        WaktuMulaiExam: '',
+        WaktuSelesaiExam: ''
       }
     },
     created(){
-      this.$http.post(global_json.general_url + global_json.api.moderation_schedule_active, {
-        SessID: this.$session.get('sess_id')
+      this.$http.post(global_json.general_url + global_json.api.olympiad_timer, {
+        SessID: 'opensession'
       }).then(function (data) {
-        if(data.body.schedule != null){
-          this.StartDate = moment(data.body.schedule.start_time).format('MM-DD-YYYY HH:mm');
-          this.JamMulai = moment(data.body.schedule.end_time).format('MM-DD-YYYY HH:mm');
-        }
+        this.end_time = data.body.detailexamtimers.end_time;
+        this.start_time = data.body.detailexamtimers.start_time;
+        this.TanggalMulaiExam = data.body.detailexamtimers.TanggalMulaiExam;
+        this.TanggalSelesaiExam = data.body.detailexamtimers.TanggalSelesaiExam;
+        this.WaktuMulaiExam = data.body.detailexamtimers.WaktuMulaiExam;
+        this.WaktuSelesaiExam = data.body.detailexamtimers.WaktuSelesaiExam;
       });
     },
     mounted(){

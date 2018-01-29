@@ -12,14 +12,6 @@
                 </select>
               </div>
             </div>
-            <div class="eight wide column">
-              <div class="field">
-                <label>Question Number</label>
-                <select class="ui dropdown">
-                  <option>Select Question Number</option>
-                </select>
-              </div>
-            </div>
           </div>
         </form>
         <br>

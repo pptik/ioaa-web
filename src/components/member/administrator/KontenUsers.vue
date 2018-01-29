@@ -28,7 +28,10 @@
         <tbody>
           <tr v-for="user in users">
             <td>
-              {{user.privilege}}
+              <span v-if="user.privilege == 0">Administrator</span>
+              <span v-if="user.privilege == 1">Team Leader</span>
+              <span v-if="user.privilege == 2">Partcipant</span>
+              <span v-if="user.privilege == 3">Jury</span>
             </td>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>

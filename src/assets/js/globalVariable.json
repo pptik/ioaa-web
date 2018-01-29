@@ -14,6 +14,9 @@
     "moderation_create" : "/api/moderation/schedules/create",
     "moderation_schedule_active" : "/api/moderation/schedules/get/active",
     "moderation_schedule_expired" : "/api/moderation/schedules/set/expired",
-    "olympiad_timer_update" : "/api/exam/timers/update"
+    "olympiad_timer" : "/api/exam/timers/get",
+    "olympiad_timer_update" : "/api/exam/timers/update",
+    "grades_list" : "/api/grades/get/all",
+    "change_password" : "/api/users/change/password"
   }
 }

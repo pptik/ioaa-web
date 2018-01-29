@@ -4,6 +4,7 @@
     <div class="ui segment grey-text">
       <form class="ui form">
           <div class="ui grid">
+            <!--
             <div class="five wide column">
               <div class="field">
                 <label>Jury ID</label>
@@ -16,32 +17,26 @@
                 <input type="text" placeholder="Participant ID"/>
               </div>
             </div>
-            <br>
-            <div class="five wide column">
-             <div class="field">
-                <label>Leader ID</label>
-                <input type="text" placeholder="Leader ID"/>
-              </div>
-            </div>
+            -->
           </div>
         </form>
         <br>
-        <a href="">Download Grade <i class="download icon"></i></a>
         <table class="ui compact table" style="font-size: 0.8rem">
           <thead>
             <tr>
-              <th>Jury</th>
               <th>Participant</th>
-              <th>Leader</th>
+              <th>Grade</th>
               <th>Final Grade</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-              <th>4</th>
+            <tr v-for="grade in grades">
+              <th>{{grade.kode_participant}}</th>
+              <th>
+                <span v-for="g in grade.nilai_juri">Jury Code: {{g.kode_juri}}<br/> Score: {{g.nilai}}</span>
+                <br/>
+              </th>
+              <th>{{grade.nilai_final}}</th>
             </tr>
           </tbody>
         </table>
@@ -56,9 +51,21 @@
     name: "konten",
     data(){
       return{
-        email: '',
-        sandi: ''
+        grades: []
       }
+    },
+    created(){
+      this.$http.post(global_json.general_url + global_json.api.grades_list, {
+        SessID: this.$session.get('sess_id')
+      }).then(function (data) {
+        if (data.body.success == true) {
+          console.log('grades: '+JSON.stringify(data.body))
+          this.grades = data.body.listgrade;
+          //console.log('grades: '+JSON.stringify(data.body.listgrade))
+        } else if (data.body.success == false) {
+          console.log('M: Gagal mengembalikan daftar nilai: '+JSON.stringify(data.body))
+        }
+      });
     },
     methods: {
       masuk:function () {

@@ -5,7 +5,7 @@
     </router-link>
     <div class="right menu">
       <router-link to="/team_leader/profile" class="item">
-          <span v-bind:class="{primarytext:highlight3}">Profil</span>
+          <span v-bind:class="{primarytext:highlight3}">Profile</span>
       </router-link>
       <a href="#" v-on:click.prevent="keluar" class="item grey-text">
         <aside>
