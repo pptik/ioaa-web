@@ -7,8 +7,10 @@ import AdministratorQuestions from './components/member/administrator/BungkusQue
 import AdministratorQuestionsCreate from './components/member/administrator/BungkusQuestionsCreate.vue';
 import AdministratorQuestionsUpdate from './components/member/administrator/BungkusQuestionsUpdate.vue';
 import AdministratorModeration from './components/member/administrator/BungkusModeration.vue';
+import AdministratorModerationCreate from './components/member/administrator/BungkusModerationCreate.vue';
 import AdministratorGrades from './components/member/administrator/BungkusGrades.vue';
 import AdministratorTimerOlympiad from './components/member/administrator/BungkusTimerOlympiad.vue';
+import AdministratorTimerOlympiadUpdate from './components/member/administrator/BungkusTimerOlympiadUpdate.vue';
 import TeamLeaderHome from './components/member/team_leader/BungkusHome.vue';
 import TeamLeaderGrades from './components/member/team_leader/BungkusGrades.vue';
 import TeamLeaderModeration from './components/member/team_leader/BungkusModeration.vue';
@@ -37,10 +39,12 @@ export default [
   {path:'/administrator/users', component: AdministratorUsers},
   {path:'/administrator/questions', component: AdministratorQuestions},
   {path:'/administrator/questions/create', component: AdministratorQuestionsCreate},
-  {path:'/administrator/questions/update', component: AdministratorQuestionsUpdate},
+  {path:'/administrator/questions/update/:id', component: AdministratorQuestionsUpdate},
   {path:'/administrator/moderation', component: AdministratorModeration},
+  {path:'/administrator/moderation/create', component: AdministratorModerationCreate},
   {path:'/administrator/grades', component: AdministratorGrades},
   {path:'/administrator/timer_olympiad', component: AdministratorTimerOlympiad},
+  {path:'/administrator/timer_olympiad/update', component: AdministratorTimerOlympiadUpdate},
   {path:'/team_leader/grades', component: TeamLeaderGrades},
   {path:'/team_leader/moderation', component: TeamLeaderModeration},
   {path:'/team_leader/accessing', component: TeamLeaderAccessing},

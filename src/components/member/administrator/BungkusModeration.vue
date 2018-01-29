@@ -30,7 +30,15 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
+              <div class="content">
+                You are logged as <b>{{username}}</b>
+              </div>
+            </div>
+            <div style="padding:1em;" class="item">
+              <router-link to="/administrator/moderation" class="primarytext"><i class="align justify icon"></i>Moderation List</router-link>
+            </div>
+            <div style="padding:1em;" class="item">
+              <router-link to="/administrator/moderation/create" class="grey-text"><i class="write icon"></i> Create Moderation</router-link>
             </div>
           </div>
         </div>
@@ -75,7 +83,8 @@
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            user_type: this.$session.get('user_type'),
+            username: this.$session.get('username')
           }
         },
         components: {

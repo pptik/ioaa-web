@@ -2,7 +2,7 @@
   <span>
     <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="list icon"></i>Questions List</div>
     <div class="ui segment grey-text">
-        <form class="ui form">
+        <!--<form class="ui form">
           <div class="ui grid">
             <div class="eight wide column">
               <div class="field">
@@ -19,22 +19,40 @@
               </div>
             </div>
           </div>
-        </form>
+        </form>-->
         <table class="ui compact table" style="font-size: 0.8rem">
         <thead>
           <tr>
             <th>Question Number</th>
-            <th>Question</th>
+            <th>Question in English</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>What is you hobby?</td>
+          <tr v-for="question in questions">
+            <td>{{question.nomor}}</td>
+            <td><span v-bind:id="question._id">{{question.deskripsi[0].pertanyaan}}</span></td>
+            <td><a :href="'/administrator/questions/update/'+question._id">Update</a> | <a href="#" v-on:click.prevent="delete_question_process(question._id)">Delete</a></td>
           </tr>
         </tbody>
       </table>
 
+    </div>
+    <div class="ui modal update-question"><i class="close icon"></i>
+      <div class="header">Update Question</div>
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Question Number</label>
+            <input type="text" value="" readonly/>
+          </div>
+          <div class="field">
+            <button type="button"
+                    style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
+                    class="ui button" v-on:click.prevent="update_question_process">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   </span>
 </template>
@@ -48,11 +66,12 @@
     name: "konten",
     created(){
       //Daftar pertanyaan
-      this.$http.post(global_json.general_url + global_json.api.questions_list, {
-        SessID: this.$session.get('sess_id')
+
+      this.$http.post(global_json.general_url + global_json.api.questions_active_list, {
+        SessID: 'opensession'
       }).then(function (data) {
         if (data.body.success == true) {
-          this.users = data.body.listQuestions;
+          this.questions = data.body.listQuestions;
           console.log('questions: '+JSON.stringify(data.body.listQuestions))
         } else if (data.body.success == false) {
           console.log('M: Gagal mengembalikan daftar pertanyaan: '+JSON.stringify(data.body))
@@ -152,7 +171,8 @@
         email: '',
         sandi: '',
         input_question_number: '',
-        input_question: ''
+        input_question: '',
+        questions: []
       }
     },
     methods: {
@@ -174,6 +194,24 @@
           }
         });
 
+      },
+      delete_question_process: function (question) {
+        //console.log('SessID: '+this.$session.get('sess_id'));
+        //console.log('QuestionID: '+question);
+        this.$http.post(global_json.general_url+global_json.api.delete_question,{
+          SessID: this.$session.get('sess_id'),
+          QuestionID: question
+        }).then(function (data) {
+          if(data.body.success == true){
+            //alert('SessID: '+this.$session.get('sess_id')+'QID: '+question)
+            //this.$router.push({path:'/home'})
+            alert(data.body.message)
+            window.location.href = "/administrator/questions"
+          }else if(data.body.success == false){
+            alert(data.body.message)
+            //this.$router.push({path:'/login'})
+          }
+        });
       }
     }
   }

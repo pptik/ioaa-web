@@ -30,7 +30,13 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
+              <div class="content">You are logged as <b>{{username}}</b></div>
+            </div>
+            <div style="padding:1em;" class="item">
+              <router-link to="/administrator/timer_olympiad" class="primarytext"><i class="hourglass end icon"></i>Current Timer</router-link>
+            </div>
+            <div style="padding:1em;" class="item">
+              <router-link to="/administrator/timer_olympiad/update" class="grey-text"><i class="write icon"></i>Update Timer</router-link>
             </div>
           </div>
         </div>
@@ -75,7 +81,8 @@
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            user_type: this.$session.get('user_type'),
+            username: this.$session.get('username')
           }
         },
         components: {

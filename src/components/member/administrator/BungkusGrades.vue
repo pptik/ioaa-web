@@ -30,7 +30,7 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
+              <div class="content">You are logged as <b>{{username}}</b></div>
             </div>
           </div>
         </div>
@@ -75,7 +75,8 @@
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            user_type: this.$session.get('user_type'),
+            username: this.$session.get('username')
           }
         },
         components: {

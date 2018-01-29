@@ -7,6 +7,13 @@
     "create_question" : "/api/questions/create",
     "users_list" : "/api/users/get/all",
     "countries_list" : "/api/countries/get/all",
-    "questions_list" : "/api/questions/get/all"
+    "questions_by_id": "/api/questions/get/by/id",
+    "questions_active_list" : "/api/questions/get/active",
+    "questions_update" : "/api/questions/update/english",
+    "delete_question" : "/api/questions/delete/by/id",
+    "moderation_create" : "/api/moderation/schedules/create",
+    "moderation_schedule_active" : "/api/moderation/schedules/get/active",
+    "moderation_schedule_expired" : "/api/moderation/schedules/set/expired",
+    "olympiad_timer_update" : "/api/exam/timers/update"
   }
 }

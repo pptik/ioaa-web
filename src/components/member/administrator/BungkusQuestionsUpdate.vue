@@ -38,9 +38,6 @@
             <div style="padding:1em;" class="item">
               <router-link to="/administrator/questions/create" class="grey-text"><i class="write icon"></i> Create question</router-link>
             </div>
-            <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions/update" class="primarytext"><i class="write icon"></i> Update question</router-link>
-            </div>
           </div>
         </div>
       </div>
@@ -52,7 +49,7 @@
 <script>
     import '../../../assets/js/slick.min.js'
     import Navigasi from './Navigasi';
-    import KontenUtama from './KontenQuestions';
+    import KontenUtama from './KontenQuestionsUpdate';
 
     import global_json from '../../../assets/js/globalVariable.json';
 
@@ -67,7 +64,10 @@
             this.$router.push({path:'/'})
           }
 
-          document.title = 'IOAA | Questions';
+
+          document.title = 'IOAA | Update Question';
+
+
         },
         mounted(){
           $( "#datepicker" ).datepicker({

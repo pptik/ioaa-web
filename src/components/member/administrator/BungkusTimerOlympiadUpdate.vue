@@ -9,7 +9,7 @@
               <div class="content"><router-link to="/administrator/users" class="grey-text"><i class="user icon"></i>Users</router-link></div>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"><router-link to="/administrator/questions" class="primarytext"><i class="write icon"></i>Questions</router-link></div>
+              <div class="content"><router-link to="/administrator/questions" class="grey-text"><i class="write icon"></i>Questions</router-link></div>
             </div>
             <div style="padding:1em;" class="item">
               <div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>
@@ -18,7 +18,7 @@
               <div class="content"></div><router-link to="/administrator/grades" class="grey-text"><i class="newspaper icon"></i>Grades</router-link>
             </div>
             <div style="padding:1em;" class="item">
-              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
+              <div class="content"></div><router-link to="/administrator/timer_olympiad" class="primarytext"><i class="hourglass end icon"></i>Timer Olympiad</router-link>
             </div>
           </div>
         </div>
@@ -33,12 +33,11 @@
               <div class="content">You are logged as <b>{{username}}</b></div>
             </div>
             <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions" class="primarytext"><i class="align justify icon"></i>Questions List</router-link>
+              <router-link to="/administrator/timer_olympiad" class="grey-text"><i class="hourglass end icon"></i>Current Timer</router-link>
             </div>
             <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions/create" class="grey-text"><i class="write icon"></i> Create question</router-link>
+              <router-link to="/administrator/timer_olympiad/update" class="primarytext"><i class="write icon"></i>Update Timer</router-link>
             </div>
-
           </div>
         </div>
       </div>
@@ -50,7 +49,7 @@
 <script>
     import '../../../assets/js/slick.min.js'
     import Navigasi from './Navigasi';
-    import KontenUtama from './KontenQuestions';
+    import KontenUtama from './KontenTimerOlympiadUpdate';
 
     import global_json from '../../../assets/js/globalVariable.json';
 
@@ -65,7 +64,7 @@
             this.$router.push({path:'/'})
           }
 
-          document.title = 'IOAA | Questions';
+          document.title = 'IOAA | Timer Olympiad Update';
         },
         mounted(){
           $( "#datepicker" ).datepicker({
@@ -82,6 +81,7 @@
         },
         data(){
           return{
+            user_type: this.$session.get('user_type'),
             username: this.$session.get('username')
           }
         },

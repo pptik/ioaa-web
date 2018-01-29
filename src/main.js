@@ -14,6 +14,7 @@ import 'jquery-ui-bundle/jquery-ui.js'
 import 'jquery-ui-bundle/jquery-ui.min.css'
 import 'semantic-ui/dist/semantic.min.js'
 import 'semantic-ui/dist/semantic.min.css'
+import 'moment/moment.js'
 
 
 

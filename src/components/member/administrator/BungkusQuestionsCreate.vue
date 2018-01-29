@@ -38,9 +38,6 @@
             <div style="padding:1em;" class="item">
               <router-link to="/administrator/questions/create" class="primarytext"><i class="write icon"></i> Create question</router-link>
             </div>
-            <div style="padding:1em;" class="item">
-              <router-link to="/administrator/questions/update" class="grey-text"><i class="write icon"></i> Update question</router-link>
-            </div>
           </div>
         </div>
       </div>
@@ -67,7 +64,7 @@
             this.$router.push({path:'/'})
           }
 
-          document.title = 'IOAA | Questions';
+          document.title = 'IOAA | Questions Create';
         },
         mounted(){
           $( "#datepicker" ).datepicker({
