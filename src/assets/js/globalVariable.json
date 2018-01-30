@@ -17,6 +17,7 @@
     "moderation_create" : "/api/moderation/schedules/create",
     "moderation_schedule_active" : "/api/moderation/schedules/get/active",
     "moderation_schedule_expired" : "/api/moderation/schedules/set/expired",
+    "moderation_appointment": "/api/moderation/schedules/add/by/teamleader",
     "olympiad_timer" : "/api/exam/timers/get",
     "olympiad_timer_update" : "/api/exam/timers/update",
     "grades_list" : "/api/grades/get/all",
@@ -24,5 +25,6 @@
     "grades_team_leader" : "/api/grades/insert/by/teamleader",
     "translate_from_english": "/api/g/translator/from/english",
     "country_by_id": "/api/countries/get/by/id"
+
   }
 }
