@@ -35,26 +35,6 @@
             </div>
           </div>
         </div>
-        <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Grade</div>
-        <div class="ui segment">
-          <form class="form ui">
-            <div class="field">
-              <label>Question Number</label>
-              <select class="ui dropdown">
-                <option>Select Question Number</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Score</label>
-              <input type="number" placeholder="Insert score here" autocomplete="score"/>
-            </div>
-            <div class="field">
-              <button type="button"
-                      style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
-                      class="medium ui button button-submit">Save</button>
-            </div>
-          </form>
-        </div>
       </div>
     </div>
     <hak-cipta></hak-cipta>

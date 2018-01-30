@@ -5,11 +5,14 @@
     "create_user" : "/api/users/create",
     "create_country" : "/api/countries/create",
     "create_question" : "/api/questions/create",
+    "users_by_id" : "/api/users/get/by/id",
     "users_list" : "/api/users/get/all",
+    "users_list_privilege" : "/api/users/get/by/privilege",
     "countries_list" : "/api/countries/get/all",
     "questions_by_id": "/api/questions/get/by/id",
     "questions_active_list" : "/api/questions/get/active",
     "questions_update" : "/api/questions/update/english",
+    "questions_answer_participant" : "/api/questions/by/participant/id",
     "delete_question" : "/api/questions/delete/by/id",
     "moderation_create" : "/api/moderation/schedules/create",
     "moderation_schedule_active" : "/api/moderation/schedules/get/active",
@@ -17,6 +20,9 @@
     "olympiad_timer" : "/api/exam/timers/get",
     "olympiad_timer_update" : "/api/exam/timers/update",
     "grades_list" : "/api/grades/get/all",
-    "change_password" : "/api/users/change/password"
+    "change_password" : "/api/users/change/password",
+    "grades_team_leader" : "/api/grades/insert/by/teamleader",
+    "translate_from_english": "/api/g/translator/from/english",
+    "country_by_id": "/api/countries/get/by/id"
   }
 }

@@ -50,6 +50,8 @@
             this.$session.set('user_id',data.body.profile._id)
             this.$session.set('user_role',data.body.profile.privilege)
             this.$session.set('username',data.body.profile.name)
+            this.$session.set('code',data.body.profile.code)
+            this.$session.set('country',data.body.profile.id_country)
 
             this.$router.push({path:'/home'})
 

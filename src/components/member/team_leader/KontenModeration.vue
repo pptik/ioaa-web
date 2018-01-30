@@ -20,6 +20,8 @@
         <ul>
             <li>Start Time: {{moderationStartTime}}</li>
             <li>End Time: {{moderationEndTime}}</li>
+            <li>Number of Session: {{sumOfSession}}</li>
+            <li>Minutes per Session: {{timePerSession}}</li>
         </ul>
         <table class="ui compact celled striped table" style="font-size: 0.8rem">
           <thead>
@@ -29,14 +31,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(moderationSession,index) in moderationSessions">
-              <td>{{index+1}}</td>
+            <tr v-for="(moderation,index) in moderationSessions">
+              <td>{{moderation.sesi}}</td>
               <td>
-                <div v-for="member in moderationSession">
-                    <span>Team Leader: {{member.id_team_leader}} <br/> Jury: {{member.id_juri}}</span>
-                    <br>
-                    <br>
-                </div>
+                Team Leader: {{moderation.kode_team_leader}}
+                <br/>
+                Jury: {{moderation.kode_juri}}
               </td>
             </tr>
           </tbody>
@@ -82,7 +82,9 @@
         moderationDuration: '',
         moderationSessionNumbers: '',
         moderationId: '',
-        moderationSessions: []
+        moderationSessions: [],
+        sumOfSession: '',
+        timePerSession: ''
       }
     },
     created(){
@@ -95,12 +97,15 @@
           this.moderationDuration = data.body.schedule.durasi;
           this.moderationSessionNumbers = data.body.schedule.jumlah_sesi;
           this.moderationId = data.body.schedule._id;
-          for(var a=1;a<=Object.keys(data.body.schedule.k_sesi).length;a++){
-            this.moderationSessions.push(data.body.schedule.k_sesi[a])
-            //console.log(data.body.schedule.k_sesi[a])
+          this.sumOfSession = data.body.schedule.jumlah_sesi;
+          this.timePerSession = data.body.schedule.durasi;
+          for(var a=0;a<data.body.schedule.listModerasi.length;a++){
+            this.moderationSessions.push({kode_team_leader: data.body.schedule.listModerasi[a].kode_team_leader, kode_juri: data.body.schedule.listModerasi[a].kode_juri, sesi: data.body.schedule.listModerasi[a].sesike})
           }
-          console.log('X: '+JSON.stringify(this.moderationSessions))
-          //alert(JSON.stringify(this.moderationSessions))
+          /*for(var a=1;a<=Object.keys(data.body.schedule.k_sesi).length;a++){
+            this.moderationSessions.push(data.body.schedule.k_sesi[a])
+          }*/
+
         }
       });
     },

@@ -1,103 +1,56 @@
 <template>
   <span>
-    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Accessing</div>
+    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Question Answer Detail</div>
     <div class="ui segment grey-text">
       <form class="ui form">
           <div class="ui grid">
             <div class="eight wide column">
               <div class="field">
-                <label>Participant Id</label>
-                <select class="ui dropdown">
-                  <option>Select Participant Id</option>
+                <label>Participant Code</label>
+                <select class="ui dropdown" v-model="select_participant" v-on:change="get_answer" id="select_option_participant">
+                  <option>Select Participant Code</option>
+                  <option v-for="participant in participants" :value="participant._id">
+                    {{participant.code}}
+                  </option>
                 </select>
               </div>
             </div>
           </div>
         </form>
-        <br>
-        <br>
-        <p>Notes:
 
-            &nbsp;
-            <a class="item">
-              <div class="ui grey horizontal label"><span style="visibility: hidden;">Label</span></div>
-              No Answer
-            </a>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <a class="item">
-              <div class="ui green horizontal label"><span style="visibility: hidden;">Label</span></div>
-              1<sup>st</sup> Answer
-            </a>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <a class="item">
-              <div class="ui red horizontal label"><span style="visibility: hidden;">Label</span></div>
-              2<sup>nd</sup> Answer
-            </a>
-        </p>
         <table class="ui compact celled striped table" style="font-size: 0.8rem">
           <thead>
             <tr>
               <th>Question Number</th>
               <th>Problem</th>
               <th>Participant's Answer</th>
+              <th>Score</th>
             </tr>
           </thead>
           <tbody>
-            <tr style="background-color: grey">
-              <td>1</td>
-              <td>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
-              <td></td>
-            </tr>
-            <tr style="background-color: green">
-              <td>2</td>
-              <td>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+            <tr v-for="qa in questions_aswers">
+              <td>{{qa.nomor}}</td>
+              <td>{{qa.deskripsi[0].pertanyaan}}</td>
+              <td>{{qa.deskripsi[0].jawaban_participant}}</td>
               <td>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <form class="ui form">
+                  <div class="eight wide column">
+                    <div class="field">
+                      <input type="number" placeholder="Score for the answer" v-model="grade"/>
+                      <br>
+                      <br>
+                      <button type="button"
+                              style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
+                              v-on:click.prevent="save_score(qa._id,qa.nomor)" class="mini ui button button-submit">Save</button>
+                    </div>
+                  </div>
+                </form>
               </td>
-            </tr>
-            <tr style="background-color: red">
-              <td>3</td>
-              <td>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
-              <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
             </tr>
           </tbody>
         </table>
+    </div>
 
-    </div>
-    <div class="ui modal add-moderation"><i class="close icon"></i>
-      <div class="header">Add Moderation</div>
-      <div class="content">
-        <form class="ui form">
-          <div class="field">
-            <label>Session</label>
-            <select class="ui dropdown">
-              <option>Select Session</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Jury</label>
-            <select class="ui dropdown">
-              <option>Select Jury Code</option>
-            </select>
-          </div>
-          <div class="field">
-            <button type="button"
-                    style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
-                    class="ui button" v-on:click.prevent="tambah_universitas_proses">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
   </span>
 </template>
 
@@ -108,14 +61,60 @@
     name: "konten",
     data(){
       return{
-        email: '',
-        sandi: ''
+        participants: [],
+        select_participant: '',
+        grade: '',
+        questions_aswers: []
       }
     },
+    created(){
+      this.$http.post(global_json.general_url + global_json.api.users_list_privilege, {
+        SessID: this.$session.get('sess_id'),
+        Privilege: 2
+      }).then(function (data) {
+        if (data.body.success == true) {
+          //console.log('users: '+JSON.stringify(data.body))
+          this.participants = data.body.listuser;
+          //console.log('grades: '+JSON.stringify(data.body.listgrade))
+        } else if (data.body.success == false) {
+          //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
+        }
+      });
+    },
     methods: {
-      add_moderation:function () {
-        $('.ui.modal.add-moderation')
-          .modal('show')
+      get_answer:function () {
+        this.$http.post(global_json.general_url + global_json.api.questions_answer_participant, {
+          SessID: this.$session.get('sess_id'),
+          ParticipantID: this.select_participant
+        }).then(function (data) {
+          if (data.body.success == true) {
+
+            this.questions_aswers = data.body.questionlist;
+            //console.log('M: Berhasil mengembalikan daftar questions answers: '+JSON.stringify(data.body.questionlist))
+          } else if (data.body.success == false) {
+            //console.log('M: Gagal mengembalikan daftar questions answers: '+JSON.stringify(data.body))
+          }
+        });
+      },
+      save_score: function (questionId, questionNumber) {
+
+        this.$http.post(global_json.general_url + global_json.api.grades_team_leader, {
+          SessID: this.$session.get('sess_id'),
+          QuestionID: questionId,
+          ParticipantID: this.select_participant,
+          TeamLeaderID: this.$session.get('user_id'),
+          Grades:this.grade,
+          QuestionNumber:questionNumber,
+          TeamLeaderCode:this.$session.get('code'),
+          ParticipantCode: $('#select_option_participant option:selected').text()
+        }).then(function (data) {
+          alert(data.body.message)
+          /*if (data.body.success == true) {
+            alert(data.body.message)
+          } else if (data.body.success == false) {
+          }*/
+        });
+
       }
     }
   }
