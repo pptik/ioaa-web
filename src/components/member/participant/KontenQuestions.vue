@@ -7,33 +7,36 @@
             <div class="eight wide column">
               <div class="field">
                 <label>Question Number</label>
-                <select class="ui dropdown">
+                <select class="ui dropdown" v-model="select_question_number" v-on:change="get_question_detail">
                     <option>Select Question Number</option>
+                    <option v-for="question in questions" :value="question._id">{{question.nomor}}</option>
                 </select>
               </div>
             </div>
             <div class="sixteen wide column">
              <div class="field">
                 <label>Question</label>
-                <span>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <span v-html="question_detail">
+
                 </span>
               </div>
             </div>
             <div class="sixteen wide column">
              <div class="field">
                 <label>Answer</label>
-                <vue-editor></vue-editor>
+                <vue-editor v-model="ParticipantAnswer"></vue-editor>
               </div>
             </div>
+            <!--
             <div class="sixteen wide column">
              <div class="field">
                 <label>Stylus Area</label>
                 <canvas id="sketchpad" height="100" style="border:1px solid #000000;width: 100%;"></canvas>
               </div>
             </div>
+            -->
             <div class="sixteen wide column">
-              <button  type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button">Submit</button>
+              <button  type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button" v-on:click="submit_question">Submit</button>
             </div>
           </div>
         </form>
@@ -43,11 +46,24 @@
 
 <script>
   import { VueEditor } from 'vue2-editor'
-
+  import global_json from '../../../assets/js/globalVariable.json';
 
 
   export default {
     name: "konten",
+    created(){
+      //Mengambil pertanyaan
+      this.$http.post(global_json.general_url + global_json.api.questions_active_list, {
+        SessID: 'opensession'
+      }).then(function (data) {
+        if (data.body.success == true) {
+          this.questions = data.body.listQuestions;
+          //console.log("DP: "+JSON.stringify(data.body.listQuestions))
+        } else if (data.body.success == false) {
+          //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
+        }
+      });
+    },
     mounted() {
       // Variables for referencing the canvas and 2dcanvas context
       var canvas,ctx;
@@ -138,13 +154,37 @@
     },
     data(){
       return{
-        email: '',
-        sandi: ''
+        select_question_number: '',
+        question_detail: '',
+        questions: [],
+        QuestionID: this.select_question_number,
+        ParticipantAnswer: ''
       }
     },
     methods: {
-      masuk:function () {
-
+      //Mengambil detail pertanyaan
+      get_question_detail:function () {
+        this.$http.post(global_json.general_url + global_json.api.questions_by_id, {
+          SessID: 'opensession',
+          QuestionID: this.select_question_number
+        }).then(function (data) {
+          if (data.body.success == true) {
+            this.question_detail = data.body.detailquestion.deskripsi[0].pertanyaan
+            //console.log("DQ: "+JSON.stringify(this.question_detail))
+          } else if (data.body.success == false) {
+            //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
+          }
+        });
+      },
+      submit_question: function () {//Menjawab pertanyaan
+        this.$http.post(global_json.general_url + global_json.api.participant_answering_question, {
+          SessID: this.$session.get('sess_id'),
+          QuestionID: this.select_question_number,
+          ParticipantID: this.$session.get('user_id'),
+          ParticipantAnswer: this.ParticipantAnswer
+        }).then(function (data) {
+          alert(JSON.stringify(data.body.message))
+        });
       }
     }
   }

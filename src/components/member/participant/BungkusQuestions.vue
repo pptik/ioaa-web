@@ -23,7 +23,7 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
+              <div class="content">You are logged as <b>{{user_name}}</b></div>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
         name: "index",
         created () {
 
-          if(this.$session.get('user_type') != 'participant'){
+          if(this.$session.get('user_role') != 2){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
@@ -68,7 +68,7 @@
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            user_name: this.$session.get('username')
           }
         },
         components: {

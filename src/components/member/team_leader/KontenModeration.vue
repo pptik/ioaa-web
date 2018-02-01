@@ -88,6 +88,7 @@
       }
     },
     created(){
+      //Schedule active moderation
       this.$http.post(global_json.general_url + global_json.api.moderation_schedule_active, {
         SessID: this.$session.get('sess_id')
       }).then(function (data) {

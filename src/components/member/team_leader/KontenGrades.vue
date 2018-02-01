@@ -55,6 +55,7 @@
       }
     },
     created(){
+      //Menampilkan grade
       this.$http.post(global_json.general_url + global_json.api.grades_list, {
         SessID: this.$session.get('sess_id')
       }).then(function (data) {

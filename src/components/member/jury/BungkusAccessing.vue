@@ -31,33 +31,11 @@
         <div class="ui segment">
           <div class="ui middle aligned divided list">
             <div style="padding:1em;" class="item">
-              <div class="content">You are logged as {{user_type}}</div>
-            </div>
-            <div style="padding:1em;" class="item">
-              <div class="content">Your Country </div>
+              <div class="content">You are logged as <b>{{username}}</b></div>
             </div>
           </div>
         </div>
-        <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Grade</div>
-        <div class="ui segment">
-          <form class="form ui">
-            <div class="field">
-              <label>Question Number</label>
-              <select class="ui dropdown">
-                <option>Select Question Number</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Score</label>
-              <input type="number" placeholder="Insert score here" autocomplete="score"/>
-            </div>
-            <div class="field">
-              <button type="button"
-                      style="background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;"
-                      class="medium ui button button-submit">Save</button>
-            </div>
-          </form>
-        </div>
+
       </div>
     </div>
     <hak-cipta></hak-cipta>
@@ -75,7 +53,7 @@
         name: "index",
         created () {
 
-          if(this.$session.get('user_type') != 'jury'){
+          if(this.$session.get('user_role') != 3){
             alert("You have no permit to access this page")
             this.$router.push({path:'/'})
           }
@@ -84,7 +62,7 @@
         },
         data(){
           return{
-            user_type: this.$session.get('user_type')
+            username: this.$session.get('username')
           }
         },
         components: {

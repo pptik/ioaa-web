@@ -28,15 +28,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="qa in questions_aswers">
+            <tr v-for="(qa,index) in questions_aswers">
               <td>{{qa.nomor}}</td>
               <td>{{qa.deskripsi[0].pertanyaan}}</td>
-              <td>{{qa.deskripsi[0].jawaban_participant}}</td>
+              <td>{{qa.jawaban[0].jawaban_participant}}</td>
               <td>
                 <form class="ui form">
                   <div class="eight wide column">
                     <div class="field">
-                      <input type="number" placeholder="Score for the answer" v-model="grade"/>
+                      <input type="number" placeholder="Score for the answer" v-model="grade[index]"/>
                       <br>
                       <br>
                       <button type="button"

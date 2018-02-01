@@ -24,7 +24,8 @@
     "change_password" : "/api/users/change/password",
     "grades_team_leader" : "/api/grades/insert/by/teamleader",
     "translate_from_english": "/api/g/translator/from/english",
-    "country_by_id": "/api/countries/get/by/id"
+    "country_by_id": "/api/countries/get/by/id",
+    "participant_answering_question": "/api/questions/add/answer"
 
   }
 }
