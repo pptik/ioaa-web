@@ -15,7 +15,7 @@
             </div>
             <div style="padding:1em;" class="item">
               <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
-              <div class="content"><router-link to="/team_leader/accessing" class="grey-text"><i class="write icon"></i>Accessing</router-link></div>
+              <div class="content"><router-link to="/team_leader/accessing" class="grey-text"><i class="write icon"></i>Scoring</router-link></div>
             </div>
             <div style="padding:1em;" class="item">
               <!--<div class="content"></div><router-link to="/administrator/moderation" class="grey-text"><i class="talk outline icon"></i>Moderation</router-link>-->
