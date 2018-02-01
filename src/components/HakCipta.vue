@@ -14,7 +14,7 @@
         },*/
         data(){
           return{
-            copyright: "© 2018 PPTIK Bandung Institute of Technology"
+            copyright: "© 2018 PPTIK Institut Teknologi Bandung"
           }
         }
     }
