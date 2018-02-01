@@ -31,12 +31,17 @@
             <tr v-for="(qa,index) in questions_aswers">
               <td>{{qa.nomor}}</td>
               <td>{{qa.deskripsi[0].pertanyaan}}</td>
-              <td>{{qa.jawaban[0].jawaban_participant}}</td>
+              <td>
+                <span v-for="(j,index) in qa.jawaban">
+                  answer {{index+1}}: {{j.jawaban_participant}}
+                  <br>
+                </span>
+              </td>
               <td>
                 <form class="ui form">
                   <div class="eight wide column">
                     <div class="field">
-                      <input type="number" placeholder="Score for the answer" v-model="grade[index]"/>
+                      <input type="number" placeholder="Score for the answer" v-model="grade"/>
                       <br>
                       <br>
                       <button type="button"
@@ -97,7 +102,7 @@
         });
       },
       save_score: function (questionId, questionNumber) {
-
+        //alert("Gradenya: "+this.grade)
         this.$http.post(global_json.general_url + global_json.api.grades_team_leader, {
           SessID: this.$session.get('sess_id'),
           QuestionID: questionId,

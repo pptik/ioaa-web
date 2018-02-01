@@ -6,18 +6,26 @@
           <thead>
             <tr>
               <th>Participant</th>
-              <th>Grade</th>
+              <th>Question Number</th>
+              <th>Scores</th>
+              <th>Difference Scores</th>
               <th>Final Grade</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="grade in grades">
-              <th>{{grade.kode_participant}}</th>
-              <th>
-                <span v-for="g in grade.nilai_juri">Jury Code: {{g.kode_juri}}<br/> Score: {{g.nilai}}</span>
-                <br/>
-              </th>
-              <th>{{grade.nilai_final}}</th>
+              <td>{{grade.kode_participant}}</td>
+              <td>{{grade.nomor_soal}}</td>
+              <td>
+                Juries:
+                <ol>
+                  <li v-for="g in grade.nilai_juri">{{g.kode_juri}}, score: {{g.nilai}}</li>
+                </ol>
+                Team Leader:
+                {{grade.nilai_team_leader.kode_team_leader}}, score: {{grade.nilai_team_leader.nilai}}
+              </td>
+              <td>{{grade.selisih}}</td>
+              <td>{{grade.nilai_final}}</td>
             </tr>
           </tbody>
         </table>

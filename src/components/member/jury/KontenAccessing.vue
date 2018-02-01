@@ -43,15 +43,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(qa,index) in questions_aswers">
+            <tr v-for="qa in questions_aswers">
               <td>{{qa.nomor}}</td>
               <td>{{qa.deskripsi[0].pertanyaan}}</td>
-              <td>{{qa.jawaban[0].jawaban_participant}}</td>
+              <td>
+                <span v-for="(j,index) in qa.jawaban">
+                  answer {{index+1}}: {{j.jawaban_participant}}
+                  <br>
+                </span>
+              </td>
               <td>
                 <form class="ui form">
                   <div class="eight wide column">
                     <div class="field">
-                      <input type="number" placeholder="Score for the answer" v-model="grade[index]"/>
+                      <input type="number" placeholder="Score for the answer" v-model="grade"/>
                       <br>
                       <br>
                       <button type="button"
@@ -117,14 +122,14 @@
       },
       save_score: function (questionId, questionNumber) {
 
-        this.$http.post(global_json.general_url + global_json.api.grades_team_leader, {
+        this.$http.post(global_json.general_url + global_json.api.grades_jury, {
           SessID: this.$session.get('sess_id'),
           QuestionID: questionId,
           ParticipantID: this.select_participant,
-          TeamLeaderID: this.$session.get('user_id'),
+          JuryID: this.$session.get('user_id'),
           Grades:this.grade,
           QuestionNumber:questionNumber,
-          TeamLeaderCode:this.$session.get('code'),
+          JuryCode:this.$session.get('code'),
           ParticipantCode: $('#select_option_participant option:selected').text()
         }).then(function (data) {
           alert(data.body.message)

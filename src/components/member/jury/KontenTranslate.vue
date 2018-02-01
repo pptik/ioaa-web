@@ -2,7 +2,7 @@
   <span>
     <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Translate</div>
     <div class="ui segment grey-text">
-      <form class="ui form">
+      <!--<form class="ui form">
           <div class="ui grid">
             <div class="eight wide column">
               <div class="field">
@@ -12,31 +12,20 @@
                 </select>
               </div>
             </div>
-            <div class="eight wide column">
-              <div class="field">
-                <label>Language</label>
-                <select class="ui dropdown">
-                  <option>Select Language</option>
-                </select>
-              </div>
-            </div>
           </div>
         </form>
       <br>
-      <br>
+      <br>-->
       <form class="ui form">
           <div class="ui grid">
             <div class="sixteen wide column">
               <div class="field">
-                <label>Question:</label>
-                <span>
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                  Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-
-                </span>
+                <label>Question Translated to your language</label>
+                <ol>
+                  <li v-for="tq in translated_question">
+                    {{tq.deskripsi[0].pertanyaan}}
+                  </li>
+                </ol>
               </div>
             </div>
           </div>
@@ -57,9 +46,41 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
     },
     data(){
       return{
-        email: '',
-        sandi: ''
+        'language_code': '',
+        'translated_question': []
       }
+    },
+    created(){
+      //Mengambil kode bahasa negara
+      this.$http.post(global_json.general_url + global_json.api.country_by_id, {
+        SessID: 'opensession',
+        CountryID: this.$session.get('country')
+      }).then(function (data) {
+        if (data.body.success == true) {
+
+          this.language_code = data.body.countrydetail.kode_bahasa;
+
+          //Mengambil soal translatean
+          this.$http.post(global_json.general_url + global_json.api.translated_question, {
+            SessID: 'opensession',
+            LanguageCode: this.language_code
+          }).then(function (data) {
+            if (data.body.success == true) {
+              //alert('Kode bahasa soal transte anx: '+JSON.stringify(this.language_code))
+              this.translated_question = data.body.questionlist;
+
+              console.log('TQ: '+JSON.stringify(data.body.questionlist))
+            } else if (data.body.success == false) {
+              console.log('M: Gagal mengembalikan translate question')
+            }
+          });
+
+        } else if (data.body.success == false) {
+          //console.log('M: Gagal mengembalikan kode bahasa negara')
+        }
+      });
+
+
     },
     methods: {
       add_moderation:function () {

@@ -1,6 +1,6 @@
 <template>
   <span>
-    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="info icon"></i>General Information</div>
+    <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="info icon"></i>Grades List</div>
     <div class="ui segment grey-text">
       <form class="ui form">
           <div class="ui grid">
@@ -25,18 +25,26 @@
           <thead>
             <tr>
               <th>Participant</th>
-              <th>Grade</th>
+              <th>Question Number</th>
+              <th>Scores</th>
+              <th>Difference Scores</th>
               <th>Final Grade</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="grade in grades">
-              <th>{{grade.kode_participant}}</th>
-              <th>
-                <span v-for="g in grade.nilai_juri">Jury Code: {{g.kode_juri}}<br/> Score: {{g.nilai}}</span>
-                <br/>
-              </th>
-              <th>{{grade.nilai_final}}</th>
+              <td>{{grade.kode_participant}}</td>
+              <td>{{grade.nomor_soal}}</td>
+              <td>
+                Juries:
+                <ol>
+                  <li v-for="g in grade.nilai_juri">{{g.kode_juri}}, score: {{g.nilai}}</li>
+                </ol>
+                Team Leader:
+                {{grade.nilai_team_leader.kode_team_leader}}, score: {{grade.nilai_team_leader.nilai}}
+              </td>
+              <td>{{grade.selisih}}</td>
+              <td>{{grade.nilai_final}}</td>
             </tr>
           </tbody>
         </table>
