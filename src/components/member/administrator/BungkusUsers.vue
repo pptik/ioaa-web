@@ -218,8 +218,8 @@
               if(data.body.success == true){
                 console.log('DK: '+JSON.stringify(data));
                 alert(data.body.message)
-                //this.$router.push({path:'/home'})
-                window.location.href = "/administrator/users"
+                this.$router.push({path:'/administrator/users'})
+                //window.location.href = "/administrator/users"
               }else if(data.body.success == false){
                 alert(data.body.message)
                 //this.$router.push({path:'/login'})
@@ -239,7 +239,8 @@
                 //console.log('DK: '+JSON.stringify(data));
                 alert(data.body.message)
                 //this.$router.push({path:'/home'})
-                window.location.href = "/administrator/users"
+                this.$router.push({path:'/administrator/users'})
+                //window.location.href = "/administrator/users"
               }else if(data.body.success == false){
                 alert(data.body.message)
                 //this.$router.push({path:'/login'})

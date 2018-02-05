@@ -83,7 +83,8 @@
           Durasi: this.Durasi
         }).then(function (data) {
           alert(data.body.message);
-          window.location.href = "/administrator/moderation"
+          this.$router.push({path:'/administrator/moderation'})
+          //window.location.href = "/administrator/moderation"
         });
 
 

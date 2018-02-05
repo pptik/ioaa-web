@@ -95,7 +95,8 @@
             console.log('DK: '+JSON.stringify(data));
             alert(data.body.message)
             //this.$router.push({path:'/home'})
-            window.location.href = "/administrator/moderation"
+            this.$router.push({path:'/administrator/moderation'})
+            //window.location.href = "/administrator/moderation"
           }else if(data.body.success == false){
             alert(data.body.message)
             //this.$router.push({path:'/login'})

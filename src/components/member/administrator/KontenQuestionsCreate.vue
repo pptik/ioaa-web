@@ -145,8 +145,8 @@
           if(data.body.success == true){
             console.log('DK: '+JSON.stringify(data));
             alert(data.body.message)
-            //this.$router.push({path:'/home'})
-            window.location.href = "/administrator/questions"
+            this.$router.push({path:'/administrator/questions'})
+            //window.location.href = "/administrator/questions"
           }else if(data.body.success == false){
             alert(data.body.message)
             //this.$router.push({path:'/login'})

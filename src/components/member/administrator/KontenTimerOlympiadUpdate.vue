@@ -67,7 +67,8 @@
           JamSelesai: this.JamSelesai
         }).then(function (data) {
           alert(data.body.message);
-          window.location.href = "/administrator/timer_olympiad"
+          this.$router.push({path:'/administrator/timer_olympiad'})
+          //window.location.href = "/administrator/timer_olympiad"
         });
       }
     }
