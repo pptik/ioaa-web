@@ -148,7 +148,8 @@
             }).then(function (data) {
               if(data.body.success == true){
                 alert(data.body.message)
-                this.$router.push({path:'/team_leader/moderation'})
+                //this.$router.push({path:'/team_leader/moderation'})
+                this.$router.go('/team_leader/moderation')
                 //window.location.href = "/team_leader/moderation"
               }else if(data.body.success == false){
                 alert(data.body.message)

@@ -218,7 +218,8 @@
               if(data.body.success == true){
                 console.log('DK: '+JSON.stringify(data));
                 alert(data.body.message)
-                this.$router.push({path:'/administrator/users'})
+                //this.$router.push({path:'/administrator/users'})
+                this.$router.go('/administrator/users')
                 //window.location.href = "/administrator/users"
               }else if(data.body.success == false){
                 alert(data.body.message)
@@ -239,7 +240,8 @@
                 //console.log('DK: '+JSON.stringify(data));
                 alert(data.body.message)
                 //this.$router.push({path:'/home'})
-                this.$router.push({path:'/administrator/users'})
+                this.$router.go('/administrator/users')
+                //this.$router.push({path:'/administrator/users'})
                 //window.location.href = "/administrator/users"
               }else if(data.body.success == false){
                 alert(data.body.message)

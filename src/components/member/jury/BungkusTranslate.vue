@@ -54,7 +54,8 @@
 
           if(this.$session.get('user_role') != 3){
             alert("You have no permit to access this page")
-            this.$router.push({path:'/'})
+            //this.$router.push({path:'/'})
+            this.$router.go('/')
           }
 
           document.title = 'IOAA | Translate';
