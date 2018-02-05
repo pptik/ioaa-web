@@ -28,7 +28,7 @@
                 <vue-editor v-model="language_translate"></vue-editor>
               </div></div>
             <div class="sixteen wide column">
-              <button  type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button"><i class="send outline icon"></i>Translate</button>
+              <button  v-on:click.prevent="translate_to_tl_language" type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button"><i class="send outline icon"></i>Submit</button>
               <button  v-on:click.prevent="get_translate_language" type="button" style="background: linear-gradient(141deg, #e74c3c 10%, #c0392b 51%, #c0392b 75%);color:#FFFFFF;" class="ui button"><i class="write icon"></i>Use Translate Helper</button>
             </div>
           </div>
@@ -52,6 +52,7 @@
         questions : [],
         select_question_number: '',
         question_eng_detail: '',
+        language_name: '',
         language_code: '',
         language_translate: ''
       }
@@ -75,7 +76,7 @@
         CountryID: this.$session.get('country')
       }).then(function (data) {
         if (data.body.success == true) {
-
+          this.language_name = data.body.countrydetail.bahasa;
           this.language_code = data.body.countrydetail.kode_bahasa;
         } else if (data.body.success == false) {
           console.log('M: Gagal mengembalikan kode bahasa negara')
@@ -112,6 +113,17 @@
           } else if (data.body.success == false) {
             //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
           }
+        });
+      },
+      translate_to_tl_language: function () {
+        this.$http.post(global_json.general_url + global_json.api.translate_question_to_tl_language, {
+          SessID: 'opensession',
+          QuestionID: this.select_question_number,
+          Language: this.language_name,
+          LanguageCode: this.language_code ,
+          TranslatedQuestion: this.language_translate
+        }).then(function (data) {
+          alert(data.body.message)
         });
       }
     }

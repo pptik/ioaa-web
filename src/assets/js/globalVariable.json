@@ -28,6 +28,7 @@
     "country_by_id": "/api/countries/get/by/id",
     "participant_answering_question": "/api/questions/add/answer",
     "translated_question": "/api/questions/get/by/active/language/code",
-    "exam_timer": "/api/exam/timers/get"
+    "exam_timer": "/api/exam/timers/get",
+    "translate_question_to_tl_language": "/api/questions/insert/translation"
   }
 }
