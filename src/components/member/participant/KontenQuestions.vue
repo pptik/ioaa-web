@@ -3,7 +3,7 @@
     <div align="center" style="background: linear-gradient(to right, rgba(73,155,234,1) 0%, rgba(32,124,229,1) 100%);color:#FFFFFF;" class="ui segment grey-text"><i class="write icon"></i>Questions</div>
     <div class="ui segment grey-text">
         <form class="ui form">
-          <div class="ui grid">
+          <div class="ui grid" v-if="examStatus == true">
             <div class="eight wide column">
               <div class="field">
                 <label>Question Number</label>
@@ -39,6 +39,11 @@
               <button  type="button" style="color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;" class="ui button" v-on:click="submit_question">Submit</button>
             </div>
           </div>
+          <div class="ui grid" v-else-if="examStatus == false">
+            <div class="sixteen wide column" >
+              Not in time to take an exam.
+            </div>
+          </div>
         </form>
     </div>
   </span>
@@ -46,6 +51,7 @@
 
 <script>
   import { VueEditor } from 'vue2-editor'
+  import moment from 'moment'
   import global_json from '../../../assets/js/globalVariable.json';
 
 
@@ -63,6 +69,26 @@
           //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
         }
       });
+
+      //Mengambil exam timer
+      this.$http.post(global_json.general_url + global_json.api.exam_timer, {
+        SessID: 'opensession'
+      }).then(function (data) {
+        if (data.body.success == true) {
+          //moment(data.body.schedule.start_time).format('MM-DD-YYYY HH:mm');
+          this.dateStartExamTimer = data.body.detailexamtimers.TanggalMulaiExam;
+          this.dateEndExamTimer = data.body.detailexamtimers.TanggalSelesaiExam;
+          this.timeStartExamTimer = data.body.detailexamtimers.WaktuMulaiExam;
+          this.timeEndExamTimer = data.body.detailexamtimers.WaktuSelesaiExam;
+          this.startExamTimer = data.body.detailexamtimers.start_time;
+          this.endExamTimer = data.body.detailexamtimers.end_time;
+          this.examStatus = moment().isBetween(data.body.detailexamtimers.start_time,data.body.detailexamtimers.end_time);
+          //console.log("DP: "+JSON.stringify(data.body.listQuestions))
+        } else if (data.body.success == false) {
+          //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
+        }
+      });
+
     },
     mounted() {
       // Variables for referencing the canvas and 2dcanvas context
@@ -158,7 +184,14 @@
         question_detail: '',
         questions: [],
         QuestionID: this.select_question_number,
-        ParticipantAnswer: ''
+        ParticipantAnswer: '',
+        startExamTimer: '',
+        endExamTimer: '',
+        dateStartExamTimer: '',
+        dateEndExamTimer: '',
+        timeStartExamTimer: '',
+        timeEndExamTimer: '',
+        examStatus: ''
       }
     },
     methods: {

@@ -27,7 +27,7 @@
     "translate_from_english": "/api/g/translator/from/english",
     "country_by_id": "/api/countries/get/by/id",
     "participant_answering_question": "/api/questions/add/answer",
-    "translated_question": "/api/questions/get/by/active/language/code"
-
+    "translated_question": "/api/questions/get/by/active/language/code",
+    "exam_timer": "/api/exam/timers/get"
   }
 }
