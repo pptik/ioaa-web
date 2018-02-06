@@ -82,11 +82,18 @@
           this.timeEndExamTimer = data.body.detailexamtimers.WaktuSelesaiExam;
           this.startExamTimer = data.body.detailexamtimers.start_time;
           this.endExamTimer = data.body.detailexamtimers.end_time;
-          this.examStatus = moment().isBetween(data.body.detailexamtimers.start_time,data.body.detailexamtimers.end_time);
+          //this.examStatus = moment().isBetween(data.body.detailexamtimers.start_time,data.body.detailexamtimers.end_time);
           //console.log("DP: "+JSON.stringify(data.body.listQuestions))
         } else if (data.body.success == false) {
           //console.log('M: Gagal mengembalikan daftar pengguna: '+JSON.stringify(data.body))
         }
+      });
+
+      //Mengambil status exam timer
+      this.$http.post(global_json.general_url + global_json.api.cek_exam_timer, {
+        SessID: 'opensession'
+      }).then(function (data) {
+        this.examStatus = data.body.success
       });
 
     },

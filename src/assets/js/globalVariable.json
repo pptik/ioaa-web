@@ -10,6 +10,7 @@
     "users_list_privilege" : "/api/users/get/by/privilege",
     "countries_list" : "/api/countries/get/all",
     "questions_by_id": "/api/questions/get/by/id",
+    "questions_by_language_code": "/api/questions/get/by/active/language/code",
     "questions_active_list" : "/api/questions/get/active",
     "questions_update" : "/api/questions/update/english",
     "questions_answer_participant" : "/api/questions/by/participant/id",
@@ -29,6 +30,7 @@
     "participant_answering_question": "/api/questions/add/answer",
     "translated_question": "/api/questions/get/by/active/language/code",
     "exam_timer": "/api/exam/timers/get",
-    "translate_question_to_tl_language": "/api/questions/insert/translation"
+    "translate_question_to_tl_language": "/api/questions/insert/translation",
+    "cek_exam_timer": "/api/exam/timers/check"
   }
 }
